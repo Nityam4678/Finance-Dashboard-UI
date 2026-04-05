@@ -32,6 +32,12 @@ const SettingsIcon = ({ active }) => (
   </svg>
 )
 
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+  </svg>
+)
+
 const iconMap = {
   dashboard: DashboardIcon,
   cards: CardsIcon,
@@ -41,7 +47,7 @@ const iconMap = {
 }
 
 function Sidebar() {
-  const { activePage, setActivePage, sidebarOpen } = useUIStore()
+  const { activePage, setActivePage, sidebarOpen, setSidebarOpen } = useUIStore()
   
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard' },
@@ -51,41 +57,69 @@ function Sidebar() {
     { id: 'settings', label: 'Settings' },
   ]
 
+  const handleNavClick = (id) => {
+    setActivePage(id)
+    // Close sidebar on mobile after navigation
+    if (window.innerWidth < 1024) {
+      setSidebarOpen(false)
+    }
+  }
+
   return (
-    <aside className={`
-      w-64 bg-dark-500 border-r border-dark-100/20 p-4 
-      hidden lg:block
-      transition-all duration-300
-      ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-    `}>
-      <nav className="flex flex-col gap-1">
-        {menuItems.map((item, index) => {
-          const IconComponent = iconMap[item.id]
-          const isActive = activePage === item.id
-          return (
-            <button
-              key={item.id}
-              onClick={() => setActivePage(item.id)}
-              className={`
-                flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-smooth
-                animate-fade-in hover-lift
-                ${isActive 
-                  ? 'bg-primary-500/10 text-primary-500 border-l-2 border-primary-500' 
-                  : 'text-gray-400 hover:bg-dark-300 hover:text-white'
-                }
-              `}
-              style={{ animationDelay: `${index * 0.05}s` }}
-            >
-              <IconComponent active={isActive} />
-              <span className="text-sm font-medium">{item.label}</span>
-              {isActive && (
-                <span className="ml-auto w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
-              )}
-            </button>
-          )
-        })}
-      </nav>
-    </aside>
+    <>
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`
+        fixed lg:relative inset-y-0 left-0 z-50
+        w-64 bg-dark-500 border-r border-dark-100/20 p-4
+        transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0 lg:block
+      `}>
+        {/* Close button for mobile */}
+        <button 
+          onClick={() => setSidebarOpen(false)}
+          className="absolute top-4 right-4 p-1 text-gray-400 hover:text-white lg:hidden"
+        >
+          <CloseIcon />
+        </button>
+
+        <nav className="flex flex-col gap-1 mt-8 lg:mt-0">
+          {menuItems.map((item, index) => {
+            const IconComponent = iconMap[item.id]
+            const isActive = activePage === item.id
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className={`
+                  flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-smooth
+                  animate-fade-in hover-lift
+                  ${isActive 
+                    ? 'bg-primary-500/10 text-primary-500 border-l-2 border-primary-500' 
+                    : 'text-gray-400 hover:bg-dark-300 hover:text-white'
+                  }
+                `}
+                style={{ animationDelay: `${index * 0.05}s` }}
+              >
+                <IconComponent active={isActive} />
+                <span className="text-sm font-medium">{item.label}</span>
+                {isActive && (
+                  <span className="ml-auto w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
+                )}
+              </button>
+            )
+          })}
+        </nav>
+      </aside>
+    </>
   )
 }
 

@@ -20,55 +20,78 @@ function Dashboard() {
   const [addModalOpen, setAddModalOpen] = useState(false)
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
+    <div className="h-full lg:h-[calc(100vh-4rem)] flex flex-col lg:overflow-hidden overflow-y-auto">
       {/* Page Header */}
-      <div className="flex items-center justify-between py-2 flex-shrink-0">
+      <div className="flex items-center justify-between py-2 md:py-3 flex-shrink-0">
         <div>
-          <h1 className="text-xl font-semibold text-white">Dashboard</h1>
-          <p className="text-xs text-gray-400">
+          <h1 className="text-lg md:text-xl font-semibold text-white">Dashboard</h1>
+          <p className="text-xs text-gray-400 hidden sm:block">
             Take full control of your finances — track, manage, and spend USDT easily.
           </p>
         </div>
         {canEdit() && (
           <Button variant="primary" size="sm" onClick={() => setAddModalOpen(true)}>
-            New transfer
+            <span className="hidden sm:inline">New transfer</span>
+            <span className="sm:hidden">+</span>
           </Button>
         )}
       </div>
 
-      {/* Main Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0 overflow-hidden pb-3">
+      {/* Main Grid Layout - Responsive */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2 md:gap-3 flex-1 lg:min-h-0 lg:overflow-hidden pb-3">
         
         {/* Left Column - Cards Section */}
-        <div className="lg:col-span-3 flex flex-col gap-2 min-h-0 overflow-hidden">
+        <div className="md:col-span-1 lg:col-span-3 flex flex-col gap-2 lg:min-h-0 lg:overflow-hidden order-1 md:order-1">
           <CreditCard cardData={cardData} compact />
           <SpendingPieChart compact />
-          <QuickActions compact />
-          <GrowthTarget 
-            percentage={growthData.percentage} 
-            yearlyGrowth={growthData.yearlyGrowth}
-            compact
-          />
+          <div className="hidden md:block">
+            <QuickActions compact />
+          </div>
+          <div className="hidden lg:block">
+            <GrowthTarget 
+              percentage={growthData.percentage} 
+              yearlyGrowth={growthData.yearlyGrowth}
+              compact
+            />
+          </div>
         </div>
 
         {/* Middle Column - Balance & Charts */}
-        <div className="lg:col-span-6 flex flex-col gap-2 min-h-0 overflow-hidden">
+        <div className="md:col-span-1 lg:col-span-6 flex flex-col gap-2 lg:min-h-0 lg:overflow-hidden order-2 md:order-2">
           {/* Balance & Income Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-shrink-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 flex-shrink-0">
             <BalanceCard balances={balanceData} compact />
             <IncomeChart data={incomeData} compact />
           </div>
 
-          {/* Transactions Table - Fill remaining space */}
-          <div className="flex-1 min-h-0 overflow-hidden">
+          {/* Quick Actions - Mobile Only */}
+          <div className="md:hidden">
+            <QuickActions compact />
+          </div>
+
+          {/* Transactions Table - Responsive */}
+          <div className="flex-1 lg:min-h-0 lg:overflow-hidden">
             <TransactionsTable onAddNew={() => setAddModalOpen(true)} compact />
           </div>
         </div>
 
         {/* Right Column - Assets & Insights */}
-        <div className="lg:col-span-3 flex flex-col gap-2 min-h-0 overflow-hidden">
-          <AssetsPanel compact />
-          <InsightsPanel compact />
+        <div className="md:col-span-2 lg:col-span-3 flex flex-col sm:flex-row md:flex-row lg:flex-col gap-2 lg:min-h-0 lg:overflow-hidden order-3">
+          <div className="flex-1">
+            <AssetsPanel compact />
+          </div>
+          <div className="flex-1">
+            <InsightsPanel compact />
+          </div>
+        </div>
+
+        {/* Growth Target - Tablet/Mobile */}
+        <div className="md:col-span-2 lg:hidden order-4">
+          <GrowthTarget 
+            percentage={growthData.percentage} 
+            yearlyGrowth={growthData.yearlyGrowth}
+            compact
+          />
         </div>
 
       </div>

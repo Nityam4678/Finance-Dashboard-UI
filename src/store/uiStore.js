@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
 const useUIStore = create((set) => ({
-  // Sidebar state
-  sidebarOpen: true,
+  // Sidebar state - closed by default for mobile
+  sidebarOpen: false,
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
 

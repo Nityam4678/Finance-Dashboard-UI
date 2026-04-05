@@ -116,12 +116,12 @@ function TransactionsTable({ onAddNew, compact = false }) {
           Transactions
         </Card.Header>
         <Card.Content className="flex-1 flex flex-col min-h-0">
-          {/* Filters Row */}
+          {/* Filters Row - Responsive */}
           <div className="flex flex-wrap gap-2 mb-2 flex-shrink-0">
             {/* Search */}
-            <div className="flex-1 min-w-[150px]">
+            <div className="flex-1 min-w-[120px] sm:min-w-[150px]">
               <Input
-                placeholder="Search transactions..."
+                placeholder="Search..."
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
                 className="py-1.5 text-xs"
@@ -141,11 +141,11 @@ function TransactionsTable({ onAddNew, compact = false }) {
               ))}
             </select>
 
-            {/* Type Filter */}
+            {/* Type Filter - Hidden on very small screens */}
             <select
               value={filters.type}
               onChange={(e) => { setFilter('type', e.target.value); setCurrentPage(1); }}
-              className="bg-dark-400 border border-dark-100/30 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-primary-500"
+              className="hidden sm:block bg-dark-400 border border-dark-100/30 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-primary-500"
             >
               {typeOptions.map((opt) => (
                 <option key={opt} value={opt}>
@@ -160,44 +160,46 @@ function TransactionsTable({ onAddNew, compact = false }) {
             </Button>
           </div>
 
-          {/* Table Header */}
-          <div className={`grid gap-2 text-xs text-gray-500 pb-2 border-b border-dark-100/20 flex-shrink-0 ${canEdit() ? 'grid-cols-8' : 'grid-cols-7'}`}>
-            <button 
-              onClick={() => handleSort('date')} 
-              className="text-left hover:text-white transition-smooth flex items-center text-xs"
-            >
-              Time <SortIcon column="date" />
-            </button>
-            <button 
-              onClick={() => handleSort('type')} 
-              className="text-left hover:text-white transition-smooth flex items-center text-xs"
-            >
-              Type <SortIcon column="type" />
-            </button>
-            <span>Crypto amount</span>
-            <button 
-              onClick={() => handleSort('amount')} 
-              className="text-left hover:text-white transition-smooth flex items-center"
-            >
-              USD amount <SortIcon column="amount" />
-            </button>
-            <span>Fee</span>
-            <span>Total amount</span>
-            <span>Status</span>
-            {canEdit() && <span>Actions</span>}
-          </div>
+          {/* Table Wrapper - Horizontal scroll on mobile */}
+          <div className="flex-1 overflow-x-auto overflow-y-auto min-h-0">
+            {/* Table Header */}
+            <div className={`grid gap-2 text-xs text-gray-500 pb-2 border-b border-dark-100/20 flex-shrink-0 min-w-[600px] ${canEdit() ? 'grid-cols-8' : 'grid-cols-7'}`}>
+              <button 
+                onClick={() => handleSort('date')} 
+                className="text-left hover:text-white transition-smooth flex items-center text-xs"
+              >
+                Time <SortIcon column="date" />
+              </button>
+              <button 
+                onClick={() => handleSort('type')} 
+                className="text-left hover:text-white transition-smooth flex items-center text-xs"
+              >
+                Type <SortIcon column="type" />
+              </button>
+              <span className="hidden sm:block">Crypto</span>
+              <button 
+                onClick={() => handleSort('amount')} 
+                className="text-left hover:text-white transition-smooth flex items-center"
+              >
+                USD <SortIcon column="amount" />
+              </button>
+              <span className="hidden md:block">Fee</span>
+              <span>Total</span>
+              <span>Status</span>
+              {canEdit() && <span>Actions</span>}
+            </div>
 
-          {/* Table Body - Fills available space */}
-          <div className="flex-1 overflow-y-auto divide-y divide-dark-100/10">
-            {paginatedTransactions.length === 0 ? (
-              <EmptyState
-                icon="clipboard"
-                title="No transactions found"
-                description={search || filters.status !== 'all' || filters.type !== 'all' 
-                  ? "Try adjusting your filters or search terms."
-                  : "Start by adding your first transaction."
-                }
-                action={canEdit() && !search ? onAddNew : undefined}
+            {/* Table Body */}
+            <div className="divide-y divide-dark-100/10 min-w-[600px]">
+              {paginatedTransactions.length === 0 ? (
+                <EmptyState
+                  icon="clipboard"
+                  title="No transactions found"
+                  description={search || filters.status !== 'all' || filters.type !== 'all' 
+                    ? "Try adjusting your filters or search terms."
+                    : "Start by adding your first transaction."
+                  }
+                  action={canEdit() && !search ? onAddNew : undefined}
                 actionLabel="Add Transaction"
               />
             ) : (
@@ -209,11 +211,11 @@ function TransactionsTable({ onAddNew, compact = false }) {
                 >
                   <span className="text-gray-400 truncate">{tx.date}</span>
                   <span className="text-gray-300">{tx.type}</span>
-                  <span className="text-gray-300 truncate">{tx.cryptoAmount}</span>
+                  <span className="text-gray-300 truncate hidden sm:block">{tx.cryptoAmount}</span>
                   <span className={tx.usdAmount.startsWith('+') ? 'text-success-400' : 'text-danger-400'}>
                     {tx.usdAmount}
                   </span>
-                  <span className="text-gray-400">{tx.fee}</span>
+                  <span className="text-gray-400 hidden md:block">{tx.fee}</span>
                   <span className={tx.totalAmount.startsWith('+') ? 'text-success-400' : 'text-danger-400'}>
                     {tx.totalAmount}
                   </span>
@@ -255,6 +257,7 @@ function TransactionsTable({ onAddNew, compact = false }) {
               ))
             )}
           </div>
+        </div>
 
           {/* Pagination - Fixed at bottom */}
           <div className="flex items-center justify-between pt-2 border-t border-dark-100/20 flex-shrink-0">
