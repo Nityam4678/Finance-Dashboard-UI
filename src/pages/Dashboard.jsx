@@ -11,6 +11,7 @@ import {
   GrowthTarget,
   AddTransactionModal,
   InsightsPanel,
+  SpendingPieChart,
 } from '../components/dashboard'
 import { balanceData, incomeData, cardData, growthData } from '../data/mockData'
 
@@ -19,7 +20,7 @@ function Dashboard() {
   const [addModalOpen, setAddModalOpen] = useState(false)
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col">
+    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
       {/* Page Header */}
       <div className="flex items-center justify-between py-2 flex-shrink-0">
         <div>
@@ -36,11 +37,12 @@ function Dashboard() {
       </div>
 
       {/* Main Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0 overflow-hidden pb-3">
         
         {/* Left Column - Cards Section */}
-        <div className="lg:col-span-3 flex flex-col gap-2">
+        <div className="lg:col-span-3 flex flex-col gap-2 min-h-0 overflow-hidden">
           <CreditCard cardData={cardData} compact />
+          <SpendingPieChart compact />
           <QuickActions compact />
           <GrowthTarget 
             percentage={growthData.percentage} 
@@ -50,7 +52,7 @@ function Dashboard() {
         </div>
 
         {/* Middle Column - Balance & Charts */}
-        <div className="lg:col-span-6 flex flex-col gap-2 min-h-0">
+        <div className="lg:col-span-6 flex flex-col gap-2 min-h-0 overflow-hidden">
           {/* Balance & Income Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-shrink-0">
             <BalanceCard balances={balanceData} compact />
@@ -58,13 +60,13 @@ function Dashboard() {
           </div>
 
           {/* Transactions Table - Fill remaining space */}
-          <div className="flex-1 min-h-0">
+          <div className="flex-1 min-h-0 overflow-hidden">
             <TransactionsTable onAddNew={() => setAddModalOpen(true)} compact />
           </div>
         </div>
 
         {/* Right Column - Assets & Insights */}
-        <div className="lg:col-span-3 flex flex-col gap-2">
+        <div className="lg:col-span-3 flex flex-col gap-2 min-h-0 overflow-hidden">
           <AssetsPanel compact />
           <InsightsPanel compact />
         </div>

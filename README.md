@@ -4,27 +4,37 @@ A modern, responsive finance dashboard built with React and Tailwind CSS. Featur
 
 ![Dashboard Preview](https://img.shields.io/badge/React-18.2-blue?logo=react) ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-38bdf8?logo=tailwindcss) ![Vite](https://img.shields.io/badge/Vite-5.2-646cff?logo=vite)
 
-## ✨ Features
+## Financial Dashboard
+
+### Admin View
+![Admin Dashboard](./Images/Admin%20Page.png)
+*Admin role with full access to add, edit, and delete transactions*
+
+### Viewer View
+![Viewer Dashboard](./Images/Viewer%20Page.png)
+*Viewer role with read-only access to dashboard data*
+
+## Features
 
 ### Core Features
-- **📊 Dashboard Overview** - Balance cards, income charts, and transaction summaries
-- **💳 Credit Card Management** - Visual card display with balance tracking
-- **📈 Income Analytics** - Interactive area charts with time filters
-- **📋 Transaction Table** - Sortable, filterable transaction history
-- **🔍 Search & Filter** - Real-time search with status/type filters
-- **📱 Responsive Design** - Mobile-first, works on all devices
+- ** Dashboard Overview** - Balance cards, income charts, and transaction summaries
+- ** Credit Card Management** - Visual card display with balance tracking
+- ** Income Analytics** - Interactive area charts with time filters
+- ** Transaction Table** - Sortable, filterable transaction history
+- ** Search & Filter** - Real-time search with status/type filters
+- ** Responsive Design** - Mobile-first, works on all devices
 
 ### Role-Based Access
 - **Admin Role** - Full access: add, edit, delete transactions
 - **Viewer Role** - Read-only access to dashboard data
 
 ### UI/UX Polish
-- 🌙 Dark theme with orange accent colors
-- ✨ Smooth animations and transitions
-- 🔔 Toast notifications for user feedback
-- 📭 Empty states with helpful messages
-- ⏳ Loading skeletons for async operations
-- 💾 LocalStorage persistence for data
+-  Smooth animations and transitions
+-  Dark theme with orange accent colors
+-  Toast notifications for user feedback
+-  Empty states with helpful messages
+-  Loading skeletons for async operations
+-  LocalStorage persistence for data
 
 ## 🛠️ Tech Stack
 
@@ -36,7 +46,7 @@ A modern, responsive finance dashboard built with React and Tailwind CSS. Featur
 | **Zustand** | Lightweight state management |
 | **Recharts** | Responsive chart library |
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
@@ -68,7 +78,7 @@ npm run build
 npm run preview
 ```
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 src/
@@ -120,7 +130,7 @@ src/
 └── index.css            # Global styles & animations
 ```
 
-## 🎨 Design System
+##  Design System
 
 ### Color Palette
 
@@ -160,7 +170,7 @@ Toggle between roles by clicking the role badge in the navbar.
 | Edit Status | ✅ | ❌ |
 | Delete Transaction | ✅ | ❌ |
 
-## 💾 Data Persistence
+##  Data Persistence
 
 The app uses localStorage to persist:
 - **Transactions** - All transaction data survives page refresh
@@ -172,7 +182,7 @@ To reset data, clear localStorage:
 localStorage.clear()
 ```
 
-## 📝 Scripts
+##  Scripts
 
 | Command | Description |
 |---------|-------------|
@@ -180,7 +190,7 @@ localStorage.clear()
 | `npm run build` | Build for production |
 | `npm run preview` | Preview production build |
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -188,10 +198,3 @@ localStorage.clear()
 4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
-Built with ❤️ using React + Vite + Tailwind CSS

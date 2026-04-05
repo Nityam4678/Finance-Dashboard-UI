@@ -12,7 +12,7 @@ const statusVariants = {
 const statusOptions = ['all', 'Completed', 'Processing', 'Failed']
 const typeOptions = ['all', 'Deposit', 'Spend', 'Withdraw']
 
-const ROWS_PER_PAGE = 7
+const ROWS_PER_PAGE = 6
 
 function TransactionsTable({ onAddNew, compact = false }) {
   const { 

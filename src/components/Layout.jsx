@@ -4,12 +4,12 @@ import MainContent from './MainContent'
 
 function Layout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen flex flex-col overflow-hidden">
       {/* Top Navbar */}
       <Navbar />
       
       {/* Content Area: Sidebar + Main */}
-      <div className="flex flex-1">
+      <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Left Sidebar */}
         <Sidebar />
         
