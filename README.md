@@ -66,7 +66,7 @@ npm install
 npm run dev
 ```
 
-Open [https://finance-dashboard-ui-beta-virid.vercel.app/](Live Dashboard) in your browser.
+Open [https://finance-dashboard-ui-beta-virid.vercel.app](Live Dashboard) in your browser.
 
 ### Build for Production
 
