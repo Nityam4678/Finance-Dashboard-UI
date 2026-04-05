@@ -1,11 +1,11 @@
-function Card({ children, className = '', hover = true, animate = true, ...props }) {
+function Card({ children, className = '', hover = true, animate = true, compact = false, ...props }) {
   return (
     <div
       className={`
         bg-dark-400 
         border border-dark-100/20 
-        rounded-2xl 
-        p-5
+        rounded-xl
+        ${compact ? 'p-3' : 'p-5'}
         shadow-card
         ${hover ? 'hover:border-dark-100/40 hover:shadow-lg hover-lift' : ''}
         ${animate ? 'animate-fade-in' : ''}
@@ -19,10 +19,10 @@ function Card({ children, className = '', hover = true, animate = true, ...props
   )
 }
 
-function CardHeader({ children, className = '', action }) {
+function CardHeader({ children, className = '', action, compact = false }) {
   return (
-    <div className={`flex items-center justify-between mb-4 ${className}`}>
-      <h3 className="text-subtitle">{children}</h3>
+    <div className={`flex items-center justify-between ${compact ? 'mb-2' : 'mb-4'} ${className}`}>
+      <h3 className={compact ? 'text-sm font-medium text-gray-300' : 'text-subtitle'}>{children}</h3>
       {action && <div>{action}</div>}
     </div>
   )

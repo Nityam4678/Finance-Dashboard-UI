@@ -1,12 +1,12 @@
 import { Card } from '../ui'
 
-function GrowthTarget({ percentage, yearlyGrowth }) {
+function GrowthTarget({ percentage, yearlyGrowth, compact = false }) {
   return (
-    <Card>
-      <Card.Header>Annual growth target</Card.Header>
+    <Card compact={compact}>
+      <Card.Header compact={compact}>Annual growth target</Card.Header>
       <Card.Content>
         {/* Progress Bar */}
-        <div className="mb-3">
+        <div className="mb-1">
           <div className="h-2 bg-dark-300 rounded-full overflow-hidden">
             <div 
               className="h-full bg-gradient-to-r from-primary-500 to-green-500 rounded-full transition-all duration-500"
@@ -19,7 +19,7 @@ function GrowthTarget({ percentage, yearlyGrowth }) {
         </div>
 
         {/* Yearly Growth */}
-        <p className="text-success-400 text-sm">{yearlyGrowth}</p>
+        <p className="text-success-400 text-xs">{yearlyGrowth}</p>
       </Card.Content>
     </Card>
   )

@@ -186,6 +186,15 @@ body {
   @apply bg-dark-100;
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Focus visible styles */
 :focus-visible {
   @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-dark-500;

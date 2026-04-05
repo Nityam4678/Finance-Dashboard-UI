@@ -6,8 +6,8 @@ const useUserStore = create(
     (set, get) => ({
       // State
       user: {
-        name: 'Norman K',
-        email: 'norman@example.com',
+        name: 'Nityam Pal',
+        email: 'nityam@example.com',
         avatar: null,
       },
       role: 'Admin', // 'Admin' | 'Viewer'

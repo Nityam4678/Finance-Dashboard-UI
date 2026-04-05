@@ -19,51 +19,54 @@ function Dashboard() {
   const [addModalOpen, setAddModalOpen] = useState(false)
 
   return (
-    <div className="space-y-6">
+    <div className="h-[calc(100vh-4rem)] flex flex-col">
       {/* Page Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between py-2 flex-shrink-0">
         <div>
-          <h1 className="text-title">Dashboard</h1>
-          <p className="text-body mt-1">
+          <h1 className="text-xl font-semibold text-white">Dashboard</h1>
+          <p className="text-xs text-gray-400">
             Take full control of your finances — track, manage, and spend USDT easily.
           </p>
         </div>
         {canEdit() && (
-          <Button variant="primary" onClick={() => setAddModalOpen(true)}>
+          <Button variant="primary" size="sm" onClick={() => setAddModalOpen(true)}>
             New transfer
           </Button>
         )}
       </div>
 
       {/* Main Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0">
         
         {/* Left Column - Cards Section */}
-        <div className="lg:col-span-3 space-y-6">
-          <CreditCard cardData={cardData} />
-          <QuickActions />
+        <div className="lg:col-span-3 flex flex-col gap-2">
+          <CreditCard cardData={cardData} compact />
+          <QuickActions compact />
           <GrowthTarget 
             percentage={growthData.percentage} 
-            yearlyGrowth={growthData.yearlyGrowth} 
+            yearlyGrowth={growthData.yearlyGrowth}
+            compact
           />
         </div>
 
         {/* Middle Column - Balance & Charts */}
-        <div className="lg:col-span-6 space-y-6">
+        <div className="lg:col-span-6 flex flex-col gap-2 min-h-0">
           {/* Balance & Income Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <BalanceCard balances={balanceData} />
-            <IncomeChart data={incomeData} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-shrink-0">
+            <BalanceCard balances={balanceData} compact />
+            <IncomeChart data={incomeData} compact />
           </div>
 
-          {/* Transactions Table */}
-          <TransactionsTable onAddNew={() => setAddModalOpen(true)} />
+          {/* Transactions Table - Fill remaining space */}
+          <div className="flex-1 min-h-0">
+            <TransactionsTable onAddNew={() => setAddModalOpen(true)} compact />
+          </div>
         </div>
 
         {/* Right Column - Assets & Insights */}
-        <div className="lg:col-span-3 space-y-6">
-          <AssetsPanel />
-          <InsightsPanel />
+        <div className="lg:col-span-3 flex flex-col gap-2">
+          <AssetsPanel compact />
+          <InsightsPanel compact />
         </div>
 
       </div>
